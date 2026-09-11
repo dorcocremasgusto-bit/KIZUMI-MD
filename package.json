@@ -1,0 +1,32 @@
+{
+  "name": "Kizumi MD",
+  "version": "1.0.0",
+  "description": "WhatsApp Bot Kizumi MD",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:web": "node web/server.js",
+    "start:all": "node start-all.js"
+  },
+  "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.7.21",
+    "axios": "^1.15.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "fluent-ffmpeg": "^2.1.3",
+    "fs-extra": "^11.3.4",
+    "lyrics-finder": "^21.7.0",
+    "node-telegram-bot-api": "^0.67.0",
+    "path": "^0.12.7",
+    "pino": "^8.21.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.5",
+    "wa-sticker-formatter": "^4.4.4",
+    "yt-search": "^2.13.1"
+  },
+  "author": "Arthur Dev",
+  "license": "MIT"
+}
