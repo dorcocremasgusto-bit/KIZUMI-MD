@@ -1,0 +1,16 @@
+{
+  "name": "𝖳𝖧𝖤 KIZUMI MD-telegram",
+  "version": "1.0.0",
+  "description": "Couche Telegram multi-session de KIZUMI MD (pairing WhatsApp via Telegram)",
+  "main": "index.js",
+  "private": true,
+  "note": "Ce fichier documente les dépendances de la couche Telegram. L'installation réelle (npm install) se fait à la racine du projet, où toutes les dépendances (Telegram + WhatsApp) sont réunies dans un seul node_modules.",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.67.0",
+    "@whiskeysockets/baileys": "^6.7.21",
+    "@hapi/boom": "^10.0.1",
+    "dotenv": "^16.6.1",
+    "fs-extra": "^11.3.4",
+    "pino": "^8.21.0"
+  }
+}
