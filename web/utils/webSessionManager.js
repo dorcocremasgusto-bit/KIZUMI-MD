@@ -87,7 +87,7 @@ class WebSessionManager extends EventEmitter {
             logger: waLogger,
             printQRInTerminal: false,
             auth: state,
-            browser: ["Ubuntu", "Chrome", "20.0.04"]
+            browser: ["Chrome", "Chrome", "120.0.0"]
         });
 
         const entry = {
