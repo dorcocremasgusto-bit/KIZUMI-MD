@@ -13,9 +13,9 @@ const ROOT = path.join(__dirname, "../.."); // racine du projet (au dessus de te
 
 module.exports = {
     // --- Telegram ---
-    TG_TOKEN: process.env.TG_TOKEN || "8853637476:AAFB5dhR2FYZQFbS2en6ZI50PsVuMUjBFv8",
+    TG_TOKEN: process.env.TG_TOKEN || "8813290425:AAEN8qB4VHyQUjeCdYfGAPwuHM11_9Qg-L0",
     // Un ou plusieurs IDs Telegram séparés par des virgules, ex: "111,222"
-    OWNER_TG_IDS: (process.env.OWNER_TG_IDS || "8853637476")
+    OWNER_TG_IDS: (process.env.OWNER_TG_IDS || "8813290425")
         .split(",")
         .map(id => id.trim())
         .filter(Boolean),
