@@ -195,8 +195,8 @@ function registerWAHandlers(sock, meta = {}) {
                     return sock.sendCustom(from, { text: "\u26a0\ufe0f Cette commande est reservee a mon proprietaire." });
                 }
 
-                const cmdPath = path.join(ROOT, "commandes", `${command}.js`);
-                const menuPath = path.join(ROOT, "commandes/menu.js");
+                const cmdPath = path.join(ROOT, "commands", `${command}.js`);
+const menuPath = path.join(ROOT, "commands", "menu.js");
                 const targetPath = fs.existsSync(cmdPath) ? cmdPath : (command === "menu" || command === "help") ? menuPath : null;
 
                 if (targetPath) {
