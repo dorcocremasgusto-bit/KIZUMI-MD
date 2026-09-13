@@ -1,9 +1,9 @@
 /**
  * commandes/menu.js
- * Menu principal "PERFECT CORE N.C" (thème Ninjago).
- * L'IMAGE est envoyée en tête, avec gifPlayback:true pour qu'elle
- * boucle  dans WhatsApp.
+ * Menu principal KIZUMI MD
+ * L'image est envoyée avec le menu en caption.
  */
+
 const MENU_IMAGE_URL = "https://files.catbox.moe/tynxsy.png";
 
 function buildMenuText(pushName) {
@@ -38,7 +38,7 @@ function buildMenuText(pushName) {
 │ ⊳ .setdesc
 └────────────────────────⊳
 
-┌──〔 🌍 𝐊𝐈𝐙𝐔𝐌𝐈 • 𝗔𝗖𝗧𝗜𝗢𝗡𝗦 〕
+┌──〔 🌍 𝐊𝐈𝐙𝐔𝐌𝐈 • 𝗔𝗖𝗧𝗈𝗡𝗦 〕
 │ ⊳ .broadcast .bcgroup   .bcpm
 │ ⊳ .mentionall .forward  .copy
 │ ⊳ .quote     .sendall   .alladmin
@@ -90,52 +90,61 @@ function buildMenuText(pushName) {
 ⚔︎ 𝗗𝗲𝘃 : 𝗔𝗥𝗧𝗛𝗨𝗥 𝗗𝗘𝗩
 └────────────────────────⊳`;
 
-    // Enveloppé en monospace WhatsApp (```...```) pour un alignement
-    // parfait des barres, quel que soit le téléphone qui l'affiche.
     return "```" + body + "```";
 }
 
-// Cache en mémoire : la vidéo n'est téléchargée qu'UNE FOIS (au premier
-// .menu), puis réutilisée pour tous les appels suivants. Beaucoup plus
-// rapide et évite de re-télécharger 187 Ko à chaque commande.
-let cachedVideoBuffer = null;
+/**
+ * Download image depuis MENU_IMAGE_URL
+ */
+async function getMenuImageBuffer() {
+    const axios = require("axios");
 
-async function getMenuVideoBuffer() {
-    if (cachedVideoBuffer) return cachedVideoBuffer;
-
-    const axios = require('axios');
-    const res = await axios.get(MENU_VIDEO_URL, {
-        responseType: 'arraybuffer',
+    const res = await axios.get(MENU_IMAGE_URL, {
+        responseType: "arraybuffer",
         timeout: 30000,
-        headers: { 'User-Agent': 'Mozilla/5.0' }
+        headers: {
+            "User-Agent": "Mozilla/5.0"
+        }
     });
-    cachedVideoBuffer = Buffer.from(res.data);
-    return cachedVideoBuffer;
+
+    return Buffer.from(res.data);
 }
 
 module.exports = {
-    name: 'menu',
+    name: "menu",
 
     async execute(sock, m, args) {
         const from = m.key.remoteJid;
         const pushName = m.pushName || "ninja";
+
         const menuText = buildMenuText(pushName);
 
         try {
+            // Télécharger l'image
+            const imageBuffer = await getMenuImageBuffer();
+
+            // Envoyer IMAGE + MENU comme caption
             await sock.sendCustom(from, {
-                image: { url: MENU_IMAGE_URL },
+                image: imageBuffer,
                 caption: menuText
             });
-        } catch (e) {
-            console.log("MENU ERROR:", e.message);
 
-            // Fallback: texte seulement
+            console.log(`✅ MENU envoyé à ${pushName}`);
+
+        } catch (e) {
+            console.log("❌ MENU IMAGE ERROR:", e.message);
+
+            // Fallback : si l'image ne fonctionne pas,
+            // le menu texte sera quand même envoyé.
             try {
                 await sock.sendCustom(from, {
                     text: menuText
                 });
+
+                console.log("✅ MENU texte envoyé en fallback");
+
             } catch (err) {
-                console.log("MENU TEXT ERROR:", err.message);
+                console.log("❌ MENU SEND ERROR:", err.message);
             }
         }
     },
