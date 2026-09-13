@@ -115,26 +115,30 @@ async function getMenuVideoBuffer() {
 
 module.exports = {
     name: 'menu',
+
     async execute(sock, m, args) {
         const from = m.key.remoteJid;
         const pushName = m.pushName || "ninja";
         const menuText = buildMenuText(pushName);
 
         try {
-            const videoBuffer = await getMenuVideoBuffer();
-
-            // Vidéo jouée en boucle comme un GIF (gifPlayback:true)
             await sock.sendCustom(from, {
-                video: videoBuffer,
-                gifPlayback: true,
+                image: { url: MENU_IMAGE_URL },
                 caption: menuText
             });
         } catch (e) {
-            console.log("MENU VIDEO ERROR:", e.message);
-            // Si la vidéo est indisponible (réseau coupé, lien mort...),
-            // on retombe sur le texte seul plutôt que de planter la commande.
-            await sock.sendCustom(from, { text: menuText });
+            console.log("MENU ERROR:", e.message);
+
+            // Fallback: texte seulement
+            try {
+                await sock.sendCustom(from, {
+                    text: menuText
+                });
+            } catch (err) {
+                console.log("MENU TEXT ERROR:", err.message);
+            }
         }
     },
+
     buildMenuText
 };
