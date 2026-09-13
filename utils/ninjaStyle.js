@@ -48,7 +48,7 @@ function box(title, lines = []) {
  */
 function reply(title, lines = []) {
     const content = Array.isArray(lines) ? lines : [lines];
-    const text = `${TOP_BAR}\n${TOP_SUB}\n\n${box(title, content)}\n\n${RULE_LONG}\n${BOTTOM_BAR}\n⚔︎ Dev : ${Arthur Dev}\n└───────────⊳`;
+    const text = `${TOP_BAR}\n${TOP_SUB}\n\n${box(title, content)}\n\n${RULE_LONG}\n${BOTTOM_BAR}\n⚔︎ Dev : ${DEV_NAME}\n└───────────⊳`;
     return mono(text);
 }
 
